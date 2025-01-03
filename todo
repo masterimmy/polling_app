@@ -1,0 +1,85 @@
+# Assignment for Jr PHP Laravel Developer
+
+---
+
+### Task: Build a **Custom Polling System**
+
+**Description:**
+
+Create a Laravel application where users can create and participate in polls. Admin users manage polls, while regular users cast their votes. Each poll has a dynamic expiration time, and results are visible only after expiration.
+
+---
+
+### Features to Implement:
+
+### **1. Authentication:**
+
+<!-- - Implement Laravel's built-in authentication system. -->
+<!-- - Add a `role` field in the users table to differentiate between `admin` and `user`. -->
+
+### **2. Optimized Database Schema:**
+
+Design the schema with the following structure:
+
+<!-- - **Users:** `id`, `name`, `email`, `password`, `role` (`admin`, `user`), `created_at` -->
+<!-- - **Polls:** `id`, `title`, `description`, `admin_id` (foreign key), `expires_at` (datetime), `created_at` -->
+<!-- - **Options:** `id`, `poll_id` (foreign key), `option_text`, `vote_count` (default: 0) -->
+<!-- - **Votes:** `id`, `user_id` (foreign key), `poll_id` (foreign key), `option_id` (foreign key), `created_at` -->
+
+**Key Optimizations:**
+
+<!-- - Use composite unique constraints to ensure a user can only vote once per poll. -->
+<!-- - Index `expires_at` for efficient queries when fetching active polls. -->
+
+### **3. Migrations and Seeders:**
+
+- Create migrations for all tables with proper relationships and constraints.
+- Seed the database with:
+    <!-- - 2 admin users. -->
+    <!-- - 5 regular users. -->
+    - 3 active polls with multiple options.
+
+### **4. Middleware:**
+
+- Create middleware for access control:
+    - Only `admin` users can create or delete polls.
+    - Only `authenticated` users can vote.
+- Restrict access to expired polls for voting.
+
+### **5. Core Functionality:**
+
+- **Admin Features:**
+    - CRUD operations for polls and their options.
+    - Dashboard to view:
+        - Active polls.
+        - Total votes per poll and per option.
+- **User Features:**
+    - View active polls (paginated) with options.
+    - Vote on a poll:
+        - Increment the `vote_count` in the `options` table.
+        - Store the vote in the `votes` table.
+    - View their voting history (poll title and the option they voted for).
+- **Poll Expiry:**
+    - Automatically hide expired polls from the active poll listing.
+    - Display results (vote counts for each option) on the poll detail page after expiration.
+
+### **6. Query Optimization:**
+
+- Optimize queries for:
+    - Fetching active polls (filtering by `expires_at`).
+    - Aggregating vote counts efficiently.
+
+---
+
+### Bonus Features (Optional):
+
+- Use Laravel's Event/Listener system to log when a poll expires.
+- Implement soft deletes for polls and options to track deleted records without losing history.
+
+---
+
+### Deliverables:
+
+1. Laravel project folder.
+2. A brief `README.md` with setup instructions and a description of any design decisions.
+3. Documentation explaining schema design and optimization choices.
