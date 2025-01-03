@@ -8,13 +8,18 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus, X } from "lucide-react";
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 export default function AddEditPolls({ poll }) {
-    const { data, setData, post, processing, errors } = useForm({
+    const formatDateTimeLocal = (date) => {
+        return dayjs(date).format("YYYY-MM-DDTHH:mm");
+    };
+
+    const { data, setData, post, put, processing, errors } = useForm({
         title: poll?.title,
         description: poll?.description,
-        expires_at: poll?.expires_at,
-        options: [''],
+        expires_at: poll?.expires_at ? formatDateTimeLocal(poll.expires_at) : "",
+        options: poll?.options || [],
     });
 
     console.log('polls :>> ', poll);
@@ -50,7 +55,11 @@ export default function AddEditPolls({ poll }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post('/polls');
+        if (poll) {
+            put(`/polls/${poll?.id}`);
+        } else {
+            post('/polls');
+        }
     };
 
     return (
@@ -145,6 +154,7 @@ export default function AddEditPolls({ poll }) {
                                     ))}
 
                                     <Button
+                                        disabled={processing}
                                         type="button"
                                         variant="outline"
                                         onClick={addOption}
@@ -160,7 +170,7 @@ export default function AddEditPolls({ poll }) {
                                     className="w-full"
                                     disabled={processing}
                                 >
-                                    Save Poll
+                                    {poll ? 'Update Poll' : 'Save Poll'}
                                 </Button>
                             </form>
                         </CardContent>

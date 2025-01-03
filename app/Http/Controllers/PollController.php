@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PollValidationRequest;
 use App\Models\Option;
 use App\Models\Poll;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -39,9 +38,7 @@ class PollController extends Controller
         try {
             $validated = $request->validated();
 
-            $poll = Poll::updateOrCreate([
-                'id' => $request->id ?? null,
-            ], [
+            $poll = Poll::create([
                 'admin_id' => auth()->user()->id,
                 'title' => $validated['title'],
                 'description' => $validated['description'],
@@ -80,15 +77,38 @@ class PollController extends Controller
      */
     public function edit(Poll $poll)
     {
+        $options = Option::where('poll_id', $poll->id)->get()->pluck('option_text');
+        $poll['options'] = $options;
+
         return inertia('Polls/AddEditPolls', ['poll' => $poll]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Poll $poll)
+    public function update(PollValidationRequest $request, Poll $poll)
     {
-        //
+        $validated = $request->validated();
+
+        $poll->update([
+            'admin_id' => auth()->user()->id,
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'expires_at' => $validated['expires_at'],
+        ]);
+
+        Option::where('poll_id', $poll->id)->delete();
+
+        foreach ($validated['options'] as $option) {
+            Option::create([
+                'poll_id' => $poll->id,
+                'option_text' => $option,
+            ]);
+        }
+
+        DB::commit();
+
+        return redirect('/polls')->with('success', 'Poll Updated Successfully');
     }
 
     /**
