@@ -29,4 +29,14 @@ class Poll extends Model
     {
         return $this->hasMany(Vote::class);
     }
+
+    public function isExpired()
+    {
+        return now()->greaterThan($this->expires_at);
+    }
+
+    public function hasUserVoted($userId)
+    {
+        return $this->votes()->where('user_id', $userId)->exists();
+    }
 }

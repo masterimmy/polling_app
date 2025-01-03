@@ -23,6 +23,7 @@ Route::middleware('auth', 'admin')->group(function () {
 });
 Route::middleware('auth', 'users')->group(function () {
     Route::get('/vote/{poll_id}', [VoteController::class, 'index']);
+    Route::post('/vote', [VoteController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
