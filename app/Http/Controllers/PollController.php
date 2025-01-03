@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PollValidationRequest;
+use App\Models\Option;
 use App\Models\Poll;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PollController extends Controller
@@ -14,7 +17,7 @@ class PollController extends Controller
     public function index()
     {
         return Inertia::render('Polls/Index', [
-            'polls' => Poll::paginate(6),
+            'polls' => Poll::latest()->paginate(6),
         ]);
     }
 
@@ -23,15 +26,45 @@ class PollController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Polls/AddEditPolls');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PollValidationRequest $request)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            $validated = $request->validated();
+
+            $poll = Poll::updateOrCreate([
+                'id' => $request->id ?? null,
+            ], [
+                'admin_id' => auth()->user()->id,
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'expires_at' => $validated['expires_at'],
+            ]);
+
+            Option::where('poll_id', $poll->id)->delete();
+
+            foreach ($validated['options'] as $option) {
+                Option::create([
+                    'poll_id' => $poll->id,
+                    'option_text' => $option,
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect('/polls')->with('success', 'Poll Created Successfully');
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -47,7 +80,7 @@ class PollController extends Controller
      */
     public function edit(Poll $poll)
     {
-        //
+        return inertia('Polls/AddEditPolls', ['poll' => $poll]);
     }
 
     /**
@@ -63,6 +96,7 @@ class PollController extends Controller
      */
     public function destroy(Poll $poll)
     {
-        //
+        $poll->delete();
+        return redirect('/polls')->with('success', 'Poll Deleted Successfully');
     }
 }

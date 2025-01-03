@@ -16,7 +16,7 @@ class EnsureUserIsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->user() || !auth()->user()->isAdmin()) {
-            return redirect()->route('login')->with('error', 'Unauthorized access.');
+            return redirect()->back()->with('error', 'Unauthorized access.');
         }
             
         return $next($request);
