@@ -42,7 +42,7 @@ class PollSeeder extends Seeder
             ],
             [
                 'title' => 'Favorite Social Media Platform',
-                'description' => 'This poll explores which social media platforms users prefer for communication, entertainment, and information sharing. It will also analyze how these platforms impact social interaction and user engagement.',
+                'description' => 'This poll explores which social media platforms users prefer for communication, entertainment, and information sharing.',
                 'options' => [
                     'Facebook',
                     'Instagram',

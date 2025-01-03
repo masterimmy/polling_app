@@ -22,11 +22,11 @@ class PollValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'description' => 'required',
-            'expires_at' => 'required',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'expires_at' => 'required|date|after:now',
             'options' => 'required|array|min:2',
-            'options.*' => 'required'
+            'options.*' => 'required|string|distinct|max:255',
         ];
     }
 

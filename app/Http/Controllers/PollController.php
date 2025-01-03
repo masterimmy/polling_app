@@ -16,7 +16,7 @@ class PollController extends Controller
     public function index()
     {
         return Inertia::render('Polls/Index', [
-            'polls' => Poll::latest()->paginate(6),
+            'polls' => Poll::withCount('votes')->with('options:id,poll_id,option_text,vote_count')->latest()->paginate(6),
         ]);
     }
 
@@ -48,6 +48,11 @@ class PollController extends Controller
             Option::where('poll_id', $poll->id)->delete();
 
             foreach ($validated['options'] as $option) {
+
+                foreach ($validated['options'] as $optionText) {
+                    $poll->options()->create(['option_text' => $optionText]);
+                }
+
                 Option::create([
                     'poll_id' => $poll->id,
                     'option_text' => $option,

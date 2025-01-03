@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 import { Head, Link, usePage } from "@inertiajs/react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
 import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 export default function Index({ polls }) {
     console.log("polls :>> ", polls);
@@ -48,12 +50,20 @@ export default function Index({ polls }) {
                                                 <CardDescription>
                                                     {poll?.description}
                                                 </CardDescription>
+                                                <CardDescription>
+                                                    {`Expires At: ${dayjs(poll?.expires_at).format("MMMM D, YYYY h:mm A")}`}
+                                                </CardDescription>
                                             </CardHeader>
-                                            <CardContent>
-                                                <p>Card Content {index + 1}</p>
-                                            </CardContent>
+                                            {
+                                                poll.options.map((option) => (
+                                                    <CardContent>
+                                                        <p>{`${option?.option_text} -> ${option?.vote_count}`}</p>
+                                                    </CardContent>
+                                                ))
+                                            }
+                                            < Separator />
                                             <CardFooter>
-                                                <p>Card Footer {index + 1}</p>
+                                                {`Total Votes : ${poll?.votes_count}`}
                                             </CardFooter>
                                         </Card>
                                     </Link>

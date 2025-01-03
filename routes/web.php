@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PollController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', function () {
     // return Inertia::render('Welcome', [
@@ -15,12 +16,13 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth', 'admin')->group(function () {
     Route::resource('/polls', PollController::class);
+});
+Route::middleware('auth', 'users')->group(function () {
+    Route::get('/vote/{poll_id}', [VoteController::class, 'index']);
 });
 
 Route::middleware('auth')->group(function () {

@@ -42,19 +42,19 @@ Design the schema with the following structure:
 ### **4. Middleware:**
 
 - Create middleware for access control:
-    - Only `admin` users can create or delete polls.
+    <!-- - Only `admin` users can create or delete polls. -->
     - Only `authenticated` users can vote.
 - Restrict access to expired polls for voting.
 
 ### **5. Core Functionality:**
 
 - **Admin Features:**
-    - CRUD operations for polls and their options.
+    <!-- - CRUD operations for polls and their options. -->
     - Dashboard to view:
-        - Active polls.
-        - Total votes per poll and per option.
+        <!-- - Active polls. -->
+        <!-- - Total votes per poll and per option. -->
 - **User Features:**
-    - View active polls (paginated) with options.
+    <!-- - View active polls (paginated) with options. -->
     - Vote on a poll:
         - Increment the `vote_count` in the `options` table.
         - Store the vote in the `votes` table.
@@ -74,7 +74,7 @@ Design the schema with the following structure:
 ### Bonus Features (Optional):
 
 - Use Laravel's Event/Listener system to log when a poll expires.
-- Implement soft deletes for polls and options to track deleted records without losing history.
+<!-- - Implement soft deletes for polls and options to track deleted records without losing history. -->
 
 ---
 

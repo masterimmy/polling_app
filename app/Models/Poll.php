@@ -14,4 +14,19 @@ class Poll extends Model
     protected $casts = [
         'expires_at' => 'datetime',
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('expires_at', '>', now());
+    }
+
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
 }

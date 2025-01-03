@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vote;
+use App\Models\Poll;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
-class VoteController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        $polls = Poll::active()->withCount('votes')
+            ->with('options:id,poll_id,option_text,vote_count')
+            ->latest()
+            ->paginate(10);
+
+        return Inertia::render('Dashboard', [
+            'polls' => $polls,
+            'stats' => auth()->user()->role === 'admin' ? [
+                'active_polls' => Poll::active()->count(),
+                'total_votes' => DB::table('votes')->count(),
+            ] : null]);
     }
 
     /**
@@ -34,7 +46,7 @@ class VoteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Vote $vote)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +54,7 @@ class VoteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Vote $vote)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +62,7 @@ class VoteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Vote $vote)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +70,7 @@ class VoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Vote $vote)
+    public function destroy(string $id)
     {
         //
     }

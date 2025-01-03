@@ -19,7 +19,7 @@ export default function AddEditPolls({ poll }) {
         title: poll?.title,
         description: poll?.description,
         expires_at: poll?.expires_at ? formatDateTimeLocal(poll.expires_at) : "",
-        options: poll?.options || [],
+        options: poll?.options || [''],
     });
 
     console.log('polls :>> ', poll);
