@@ -1,11 +1,11 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import React, { useState, useEffect } from "react";
-import { Head, useForm, usePage, Link } from "@inertiajs/react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head, useForm, usePage } from "@inertiajs/react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function Index({ poll }) {

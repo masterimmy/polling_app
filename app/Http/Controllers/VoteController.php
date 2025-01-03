@@ -52,4 +52,16 @@ class VoteController extends Controller
 
     }
 
+    public function history()
+    {
+        $votes = auth()->user()->votes()
+            ->with(['poll:id,title', 'option:id,option_text'])
+            ->latest()
+            ->paginate(15);
+
+        return Inertia::render('Votes/History', [
+            'votes' => $votes
+        ]);
+    }
+
 }

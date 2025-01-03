@@ -1,11 +1,11 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import React, { useState, useEffect } from "react";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { toast } from "react-toastify";
+import { Separator } from "@/components/ui/separator";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head, Link, usePage } from "@inertiajs/react";
 import dayjs from "dayjs";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function Index({ polls }) {
     console.log("polls :>> ", polls);

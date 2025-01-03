@@ -43,6 +43,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                             Polls
                                         </NavLink>
                                     }
+                                    {user?.role === 'user' &&
+                                        <NavLink
+                                            href={"/history"}
+                                            active={component.startsWith("History")}
+                                        >
+                                            History
+                                        </NavLink>
+                                    }
                                 </div>
                             </div>
 

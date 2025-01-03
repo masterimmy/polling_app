@@ -56,11 +56,11 @@ Design the schema with the following structure:
 - **User Features:**
     <!-- - View active polls (paginated) with options. -->
     - Vote on a poll:
-        - Increment the `vote_count` in the `options` table.
-        - Store the vote in the `votes` table.
-    - View their voting history (poll title and the option they voted for).
+        <!-- - Increment the `vote_count` in the `options` table. -->
+        <!-- - Store the vote in the `votes` table. -->
+    <!-- - View their voting history (poll title and the option they voted for). -->
 - **Poll Expiry:**
-    - Automatically hide expired polls from the active poll listing.
+    <!-- - Automatically hide expired polls from the active poll listing. -->
     - Display results (vote counts for each option) on the poll detail page after expiration.
 
 ### **6. Query Optimization:**
