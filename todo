@@ -37,7 +37,7 @@ Design the schema with the following structure:
 - Seed the database with:
     <!-- - 2 admin users. -->
     <!-- - 5 regular users. -->
-    - 3 active polls with multiple options.
+    <!-- - 3 active polls with multiple options. -->
 
 ### **4. Middleware:**
 
