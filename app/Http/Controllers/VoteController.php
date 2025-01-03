@@ -60,7 +60,19 @@ class VoteController extends Controller
             ->paginate(15);
 
         return Inertia::render('Votes/History', [
-            'votes' => $votes
+            'votes' => $votes,
+        ]);
+    }
+
+    public function result()
+    {
+        $polls = Poll::expired()->withCount('votes')
+            ->with('options:id,poll_id,option_text,vote_count')
+            ->latest()
+            ->paginate(10);
+
+        return Inertia::render('Votes/Result', [
+            'polls' => $polls,
         ]);
     }
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Poll;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -21,10 +20,7 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard', [
             'polls' => $polls,
-            'stats' => auth()->user()->role === 'admin' ? [
-                'active_polls' => Poll::active()->count(),
-                'total_votes' => DB::table('votes')->count(),
-            ] : null]);
+        ]);
     }
 
     /**

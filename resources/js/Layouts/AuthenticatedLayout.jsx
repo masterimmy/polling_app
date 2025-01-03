@@ -44,12 +44,20 @@ export default function AuthenticatedLayout({ header, children }) {
                                         </NavLink>
                                     }
                                     {user?.role === 'user' &&
+                                    <>
                                         <NavLink
                                             href={"/history"}
                                             active={component.startsWith("History")}
                                         >
                                             History
                                         </NavLink>
+                                        <NavLink
+                                            href={"/result"}
+                                            active={component.startsWith("Result")}
+                                        >
+                                            Result
+                                        </NavLink>
+                                        </>
                                     }
                                 </div>
                             </div>

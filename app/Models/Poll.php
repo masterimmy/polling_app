@@ -20,6 +20,11 @@ class Poll extends Model
         return $query->where('expires_at', '>', now());
     }
 
+    public function scopeExpired($query)
+    {
+        return $query->where('expires_at', '<', now());
+    }
+
     public function options()
     {
         return $this->hasMany(Option::class);

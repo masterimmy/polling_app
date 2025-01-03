@@ -22,6 +22,7 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::resource('/polls', PollController::class);
 });
 Route::middleware('auth', 'users')->group(function () {
+    Route::get('/result', [VoteController::class, 'result']);
     Route::get('/history', [VoteController::class, 'history']);
     Route::get('/vote/{poll_id}', [VoteController::class, 'index']);
     Route::post('/vote', [VoteController::class, 'store']);
