@@ -61,7 +61,7 @@ Design the schema with the following structure:
     <!-- - View their voting history (poll title and the option they voted for). -->
 - **Poll Expiry:**
     <!-- - Automatically hide expired polls from the active poll listing. -->
-    - Display results (vote counts for each option) on the poll detail page after expiration.
+    <!-- - Display results (vote counts for each option) on the poll detail page after expiration. -->
 
 ### **6. Query Optimization:**
 
@@ -73,7 +73,7 @@ Design the schema with the following structure:
 
 ### Bonus Features (Optional):
 
-- Use Laravel's Event/Listener system to log when a poll expires.
+<!-- - Use Laravel's Event/Listener system to log when a poll expires. -->
 <!-- - Implement soft deletes for polls and options to track deleted records without losing history. -->
 
 ---
