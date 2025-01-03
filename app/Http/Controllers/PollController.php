@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poll;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PollController extends Controller
 {
@@ -12,7 +13,9 @@ class PollController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Polls/Index', [
+            'polls' => Poll::paginate(6),
+        ]);
     }
 
     /**
