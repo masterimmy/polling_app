@@ -29,22 +29,35 @@ Ensure you have the following installed:
    composer install
    ```
 
-3. **Generate Application Key**
-   ```bash
-   php artisan key:generate
-   ```
-
-4. **Set Up Environment File**
+3. **Set Up Environment File**
    - Copy the `.env.example` file and rename it to `.env`.
      ```bash
      cp .env.example .env
      ```
    - Open the `.env` file and set the username and password for your MySQL database.
 
+4. **Generate Application Key**
+   ```bash
+   php artisan key:generate
+   ```
+
 5. **Run Migrations and Seed the Database**
    ```bash
    php artisan migrate --seed
    ```
+
+6. **Default Users and Passwords**
+   The database seeder creates the following default users. Use the credentials below for testing or accessing the application:
+   - **Admin Accounts:**
+     - `admin1@gmail.com`
+     - `admin2@gmail.com`
+   - **User Accounts:**
+     - `user1@gmail.com`
+     - `user2@gmail.com`
+     - `user3@gmail.com`
+     - `user4@gmail.com`
+     - `user5@gmail.com`
+   - **Password for All Accounts:** `password`
 
 ---
 
@@ -52,12 +65,7 @@ Ensure you have the following installed:
 
 1. Build assets:
    ```bash
-   npm run build
-   ```
-
-2. Start the development server:
-   ```bash
-   php artisan serve
+   composer run dev
    ```
 
 The application should now be accessible at `http://localhost:8000`.
