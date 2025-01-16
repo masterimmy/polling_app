@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PollValidationRequest;
@@ -39,24 +38,16 @@ class PollController extends Controller
             $validated = $request->validated();
 
             $poll = Poll::create([
-                'admin_id' => auth()->user()->id,
-                'title' => $validated['title'],
+                'admin_id'    => auth()->user()->id,
+                'title'       => $validated['title'],
                 'description' => $validated['description'],
-                'expires_at' => $validated['expires_at'],
+                'expires_at'  => $validated['expires_at'],
             ]);
 
             Option::where('poll_id', $poll->id)->delete();
 
-            foreach ($validated['options'] as $option) {
-
-                foreach ($validated['options'] as $optionText) {
-                    $poll->options()->create(['option_text' => $optionText]);
-                }
-
-                Option::create([
-                    'poll_id' => $poll->id,
-                    'option_text' => $option,
-                ]);
+            foreach ($validated['options'] as $optionText) {
+                $poll->options()->create(['option_text' => $optionText]);
             }
 
             DB::commit();
@@ -96,17 +87,17 @@ class PollController extends Controller
         $validated = $request->validated();
 
         $poll->update([
-            'admin_id' => auth()->user()->id,
-            'title' => $validated['title'],
+            'admin_id'    => auth()->user()->id,
+            'title'       => $validated['title'],
             'description' => $validated['description'],
-            'expires_at' => $validated['expires_at'],
+            'expires_at'  => $validated['expires_at'],
         ]);
 
         Option::where('poll_id', $poll->id)->delete();
 
         foreach ($validated['options'] as $option) {
             Option::create([
-                'poll_id' => $poll->id,
+                'poll_id'     => $poll->id,
                 'option_text' => $option,
             ]);
         }
