@@ -80,9 +80,4 @@ The application should now be accessible at `http://localhost:8000`.
 
 ---
 
-## License
-This project is licensed under the [MIT License](LICENSE).
-
----
-
 **Happy Coding!**
